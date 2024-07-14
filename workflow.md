@@ -27,7 +27,7 @@
    - **Visualization:** Visualize the data to gain insights, using histograms, scatter plots and correlation matrices.
    - **Distribution of classes:** Understand the distribution of classes.
 
-#### 3. **Model Selection and Preprocessing**
+#### 3. **Model Selection and Modification**
    - **Model Architecture:** A new model or choose a pre-existing CNN model, such as ResNet, Inception, or EfficientNet, and use transfer learning. Given the multi-label nature of the problem, ensure that the final layer can output multiple attributes.
    - **Multi-Label Handling:** Use a sigmoid activation function for the final layer instead of softmax since we are predicting multiple labels per image.
    - **Loss Function:** Use binary cross-entropy loss for each attribute. Sum the losses to get the final loss.
@@ -101,14 +101,7 @@ def predict(images_folder, model):
     pass
 ```
 
-### Next Steps
 
-1. **Set Up Environment:** Install necessary libraries and tools (TensorFlow/PyTorch, OpenCV, etc.).
-2. **Implement Data Loading and Preprocessing:** Write functions to load and preprocess data.
-3. **Define and Compile the Model:** Choose a pre-trained model and adjust it for multi-label classification.
-4. **Train the Model:** Train your model, monitoring validation performance.
-5. **Write Inference Script:** Develop a script to predict attributes on new images.
-6. **Document Everything:** Ensure your ReadMe file is comprehensive and clear.
 
 
 
