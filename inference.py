@@ -5,20 +5,41 @@ import pandas as pd
 import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-# Load the pre-trained model for inference
-model = tf.keras.models.load_model('resnet50_model.h5')
 
-# Function to preprocess a single image
 def preprocess_image(img_path, target_size):
+    """
+    Preprocess image to ensure a certain size,
+    normalize pixel values, and convert to numpy array.
+
+    Args:
+      img_path: Path to the image file.
+      target_size: Target size for the image. w x h
+
+    Returns:
+      Preprocessed image as a numpy array.
+    """
     img = load_img(img_path, target_size=target_size)
     img = img_to_array(img)
     img = np.expand_dims(img, axis=0)
     img = img / 255.0
     return img
 
-# Function to get attribute predictions for a batch of images
-def predict_attributes(image_paths):
+
+def predict_attributes(image_paths, model_path):
+    """
+    Function to get attribute predictions for a batch of images
+
+    Args:
+      image_paths: List of image paths
+      model_path: Path to the trained model
+
+    Returns:
+      A DataFrame containing the predicted attributes for each image
+    """
     predictions = []
+
+    # load the pre-trained model for inference
+    model = tf.keras.models.load_model('./trained_resnet50.h5')
 
     for img_path in image_paths:
         img = preprocess_image(img_path, (224, 224))
@@ -37,9 +58,29 @@ def predict_attributes(image_paths):
 
     return pd.DataFrame(predictions)
 
-# Example usage:
-image_directory = './test_images'  # Replace with the path to your image directory
-image_paths = [os.path.join(image_directory, fname) for fname in os.listdir(image_directory) if fname.endswith('.jpg')]
 
-predicted_attributes = predict_attributes(image_paths)
-print(predicted_attributes)
+if __name__ == '__main__':
+  """
+  Example usage: Inference script
+
+  Inputs:  
+  image_directory = './test_images'  # replace with your image directory path
+  model_path = './trained_resnet50.h5'  # replace above if needed
+  
+  Outputs:
+  Output.csv: csv file containing the predicted attributes for each image.
+
+  """
+
+  image_directory = './test_images'     # replace with your image directory path
+  model_path = './trained_resnet50.h5'  # replace with model path
+
+  # generate paths to images
+  image_paths = [os.path.join(image_directory, fname) for fname in os.listdir(image_directory) if fname.endswith('.jpg')]
+
+  predicted_attributes = predict_attributes(image_paths)
+  print(predicted_attributes)
+  
+  # Save the updated DataFrame to a new CSV file
+  predict_attributes.to_csv('Output.csv')
+
