@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import tensorflow as tf
 import pandas as pd
@@ -39,7 +38,7 @@ def predict_attributes(image_paths, model_path):
     predictions = []
 
     # load the pre-trained model for inference
-    model = tf.keras.models.load_model('./trained_resnet50.h5')
+    model = tf.keras.models.load_model(model_path)
 
     for img_path in image_paths:
         img = preprocess_image(img_path, (224, 224))
@@ -78,9 +77,8 @@ if __name__ == '__main__':
   # generate paths to images
   image_paths = [os.path.join(image_directory, fname) for fname in os.listdir(image_directory) if fname.endswith('.jpg')]
 
-  predicted_attributes = predict_attributes(image_paths)
+  predicted_attributes = predict_attributes(image_paths, model_path)
   print(predicted_attributes)
   
   # Save the updated DataFrame to a new CSV file
-  predict_attributes.to_csv('Output.csv')
-
+  predicted_attributes.to_csv('Output.csv')
