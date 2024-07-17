@@ -1,0 +1,6 @@
+python==3.x.x
+tensorflow==2.x.x
+numpy==1.x.x
+pandas==1.x.x
+scikit-learn==0.x.x
+Pillow==8.x.x
