@@ -17,6 +17,7 @@ pip install -r requirements.txt
 ```
 python train.py
 ```
+- The trained model size is 711 MB. Because of this reason, haven't yet uploaded.
 
 The script will train a ResNet50 model on the dataset and save the trained weights to `trained_resnet50.h5`.
 
